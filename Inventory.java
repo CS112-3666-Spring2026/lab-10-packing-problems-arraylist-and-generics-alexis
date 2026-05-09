@@ -1,4 +1,5 @@
-public class Inventory {
+import java.util.List;
+public class Inventory <T extends Supplies> {
 
 	/*     STEP 3 
 	*        
@@ -8,6 +9,31 @@ public class Inventory {
 	*
 	*      Go to Transfer.java for STEP 4
 	*/
+
+	//Instance variable
+	private T t;
+
+	public Inventory()
+	{
+
+	}
+	
+		public Inventory (T t)
+		{
+			this.t = t;
+		}
+
+		public void setObj(T t)
+		{
+			this.t = t;
+		}
+
+		public T getObj()
+		{
+			return t;
+		}
+
+	
 
 	/*     STEP 5
 	*
@@ -20,6 +46,19 @@ public class Inventory {
 	*      input String "name", use the indexOf() method to return the 
 	*      index. If no match is found, return -1. 
 	*/
+
+	public int searchByName(List<T> inputList, String name)
+	{
+		name = name.trim();
+		for(T element : inputList)
+		{
+			if (element.getName().equalsIgnoreCase(name)) {
+				return inputList.indexOf(element);
+			}
+		}
+		System.out.println("Sorry, could not find that item!");
+		return -1;
+	}
 
 
 	/*     STEP 7:
@@ -44,4 +83,22 @@ public class Inventory {
 	*      and return the object with the new quantity.
 	*/
 
+	public T checkQty(List<T> inpuList, String name, int desiredQuantity)
+	{
+		int indexOfItem = searchByName(inpuList, name);
+
+		if(indexOfItem == -1)
+		{
+			return null; //no item found
+		}
+		if(inpuList.get(indexOfItem).getQuantity() != desiredQuantity)
+		{
+			inpuList.get(indexOfItem).setQuantity(desiredQuantity);
+			return inpuList.get(indexOfItem);
+		}
+		else
+		{
+			return inpuList.get(indexOfItem);
+		}
+	}
 }
